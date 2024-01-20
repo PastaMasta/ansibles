@@ -1,0 +1,5 @@
+---
+- name: Hello
+  ansible.builtin.debug:
+    msg:
+      - "Hello from docker-node debian"

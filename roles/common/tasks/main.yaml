@@ -1,0 +1,7 @@
+---
+- name: Hello
+  ansible.builtin.debug:
+    msg:
+      - "Hello from common tasks"
+
+# Add ssh public keys

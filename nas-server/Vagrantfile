@@ -1,0 +1,41 @@
+# -*- mode: ruby -*-
+
+Vagrant.configure('2') do |config|
+  config.vm.provider "virtualbox"
+
+  config.vm.synced_folder '../', '/vagrant', type: "rsync", rsync__args: ["--verbose","--recursive"], disabled: false
+
+  config.vm.box = "debian/bullseye64"
+  cpus = 8
+  memory = 4098
+  nas_disks=0
+  nas_disk_size='10' # in GB
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.cpus = cpus
+    vb.memory = memory
+    vb.gui = true
+  end
+
+  # nas
+  config.vm.define "nas" do |nas|
+    nas.vm.hostname = "bigusdiskus"
+
+    # nas.vm.provision "shell", path: "./provision.sh"
+
+    config.vm.provision "ansible" do |ansible|
+        ansible.verbose = "v"
+        ansible.playbook = "nas-server.yaml"
+    end
+
+    nas.vm.provider :virtualbox do |vb|
+      # vb.customize ["storagectl", :id, "--name", "Pool SATA Controller", "--add", 'SATA']
+      nas_disks.times do |i|
+         vb.customize ['createhd', '--filename', "./data-#{i}.vdi",'--variant', 'Standard', '--size', nas_disk_size.to_i * 1024]
+         vb.customize ['storageattach', :id,  '--storagectl', 'SATA Controller', '--port', i, '--device', 0, '--type', 'hdd', '--medium', "./data-#{i}.vdi"]
+       end
+    end
+
+  end
+
+end

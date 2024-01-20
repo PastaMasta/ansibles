@@ -1,0 +1,8 @@
+---
+- name: Hello
+  ansible.builtin.debug:
+    msg:
+      - "Hello from docker-node"
+
+- include: debian.yaml
+  when: ansible_os_family == "Debian"
