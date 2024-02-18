@@ -15,16 +15,17 @@
     url: https://download.docker.com/linux/debian/gpg
     state: present
 
-- name: Add Docker repository
+- name: Add Docker repository  # TODO: add based on arch
   become: true
   apt_repository:
-    repo: deb [arch=amd64] https://download.docker.com/linux/debian bullseye stable
+    repo: deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
     state: present
 
 - name: Install Docker Engine
   become: true
   apt:
     name:
+      - python3-requests
       - docker-ce
       - docker-ce-cli
       - containerd.io
@@ -36,6 +37,7 @@
   user:
     name: "{{ ansible_user }}"
     groups: docker
+    append: yes
 
 - name: Start Docker service
   become: true
