@@ -3,5 +3,14 @@
   roles:
     - ../roles/common
     - ../roles/docker-node
-  # tasks:
-    # install zfs
+      # - ../roles/zfs
+
+  tasks:
+    - name: Install nfs kernal
+      become: true
+      package:
+        state: present
+        name:
+          - nfs-common
+          - nfs-kernel-server
+          - portmap
