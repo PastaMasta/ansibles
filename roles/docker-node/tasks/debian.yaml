@@ -8,6 +8,8 @@
       - ca-certificates
       - curl
       - gnupg
+      - lxc
+      - apparmor-utils
 
 - name: Add Docker GPG key
   become: true
