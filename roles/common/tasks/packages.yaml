@@ -1,0 +1,21 @@
+---
+# Install common packages
+
+- name: install common packages
+  become: true
+  package:
+    state: present
+    name:
+      - curl
+      - git
+      - htop
+      - tree
+      - wget
+
+        #- name: install Debian packages
+        #  when: ansible_os_family == "Debian"
+        #  become: true
+        #  package:
+        #    state: present
+        #    name:
+        #      - git

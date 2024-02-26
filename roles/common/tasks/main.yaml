@@ -1,30 +1,4 @@
 ---
-- name: Add local users
-  become: yes
-  user:
-    name: stevet  # TODO: use a variable for username?
-
-- name: SSH access
-  become: yes
-  authorized_key:
-    user: stevet  # TODO: use a variable for username?
-    state: present
-    key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDC31Muik6ou5/TBv8wAQBeduhSBvcnaQYal8Rn+uzVpUcR8Itm7sx7NY3qAGZqQH2sx5wALFvkhZw/EiC6xZ3CjHQJJOZfPILMmNkc4+/f6NlVZYZavgZ2DzC4P36FiuF3nKjTH3T/Gw8Q8I0KjlhHkp31VIyCDzgxAmA5XyEYSX0FlA/tGitSHH2WFVlPxv9BZNAKt0/SvYUulGLkd2dTnSIg68rzQuTK/OrQyUjKOtD1+4nXHkUPH9pAqn9sz9lmJjVpn483/e0xY+BBDAOi9nga7Nv/o1giNQzW5GBBmDe5iQo9zSjg3xqtpu8DwbPSRiALutYuRZaSS8X/y+lCbG/eFe68oTmBevCAKZ3WpLzzeBj3pHoeDFJ84Sb5nP8f3uMyBmvo1Pg7KaIu35DYgarm3NJkCT+Elmpzg/3CrdD7+PgynSazla6V6jYfQljHlpPZm+9ksA/IL+/+SLEM5cSbFC+cwLsqGhYfxHLkxk6IOIiSLDwEr9b3L99/DJc= stevet@BeanMachine
-
-# Setup common /data tree
-- name: /data dir
-  become: yes
-  file:
-    path: "{{ item }}"
-    state: directory
-    mode: 0755
-  loop:
-    - /data
-
-    - /data/backup
-    - /data/backup/local
-    - /data/backup/remote
-
-    - /data/repo
-    - /data/repo/media
-    - /data/virt/docker
+- include: users.yaml
+- include: datatree.yaml
+- include: packages.yaml
