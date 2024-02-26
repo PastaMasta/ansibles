@@ -40,9 +40,36 @@
     name: "{{ ansible_user }}"
     groups: docker
     append: yes
+  register: add_to_docker_group_result
+
+- name: Reset ssh connection to allow group add to take effect so we don't need to run ansible twice
+  ansible.builtin.meta:
+    reset_connection
+  when: add_to_docker_group_result.changed == true
 
 - name: Start Docker service
   become: true
   service:
     name: docker
     state: started
+
+- name: docker apparmor file
+  become: true
+  copy:
+    dest: "/root/nfs-apparmor.txt"
+    content: |
+      #include <tunables/global>
+      profile docker-nfs flags=(attach_disconnected,mediate_deleted) {
+        #include <abstractions/lxc/container-base>
+        mount fstype=nfs*,
+        mount fstype=rpc_pipefs,
+      }
+
+- name: docker apparmor
+  become: true
+  command:
+    argv:
+      - /usr/sbin/apparmor_parser
+      - -r
+      - -W
+      - /root/nfs-apparmor.txt
