@@ -9,5 +9,6 @@
   loop:
     - /data # Main mountpoint
     - /data/backup/local # Backups local to site
+    - /data/backup/remote # Backups of  remote systems
     - /data/repo # Fileserver share root
     - /data/virt/ # Where VMs / containers live

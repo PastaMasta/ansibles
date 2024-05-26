@@ -23,7 +23,7 @@
       update: true
       depth: 1
 
-# Start treafik, docker proxy and portainer agent?
+# Start treafik, docker proxy and portainer agent
 - name: Launch common-services
   community.docker.docker_compose_v2:
       project_src: ./docker-composies/common-services
@@ -31,4 +31,4 @@
 
 - name: show results
   debug:
-    var: output
+      var: output
