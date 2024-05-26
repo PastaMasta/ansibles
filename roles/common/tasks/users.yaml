@@ -1,21 +1,42 @@
 ---
 # Setup standard groups/users
-- name: repo group
+
+
+
+# Repo
+- name: repo
   become: yes
   group:
     name: repo
     gid: 2000
 
+- name: repo
+  become: yes
+  user:
+    name: repo
+    uid: 2000
+    group: repo
+
+# Backup
 - name: backup group
   become: yes
   group:
     name: backups
-    gid: 3001
+    gid: 2001
 
+- name: backup user
+  become: yes
+  user:
+    name: backups
+    uid: 2001
+    group: repo
+
+# User
 - name: Add local users
   become: yes
   user:
-    name: stevet  # TODO: use a variable for username?
+    name: stevet
+    uid: 3000
     groups:
       - repo
       - backups
