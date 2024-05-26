@@ -1,11 +1,13 @@
-docker-nodes:
+---
+docker:
   hosts:
-    - pi-b.localdomain
-    - bigusdiskus.localdomain
+    beanmachine.localdomain:
+    bigusdiskus.localdomain:
+    pi-b.localdomain:
 
 nas:
   hosts:
-    - bigusdiskus.localdomain
+    bigusdiskus.localdomain:
   vars:
     rw_hosts:
       - beanmachine.localdomain
