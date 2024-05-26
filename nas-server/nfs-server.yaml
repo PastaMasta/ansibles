@@ -1,0 +1,31 @@
+---
+- name: Install nfs packages
+  become: true
+  package:
+    state: present
+    name:
+      - nfs-common
+      - nfs-kernel-server
+      - rpcbind
+
+- name: Generate nfs exports file
+  become: true
+  template:
+    src: ./exports.j2
+    dest: /etc/exports
+    owner: root
+    group: root
+    mode: 0644
+  register: exports
+
+- name: Start nfs server
+  become: true
+  service:
+    name: nfs-server.service
+    enabled: true
+    state: started
+
+- name: exportfs
+  become: true
+  command: exportfs -var
+  when: exports.changed

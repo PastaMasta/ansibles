@@ -1,16 +1,15 @@
 ---
-- hosts: all
+- name: nas-server playbook
+  hosts: all
   roles:
     - ../roles/common
     - ../roles/docker-node
       # - ../roles/zfs
 
+  vars:
+    rw_hosts:
+      - host1.example.com
+
   tasks:
-    - name: Install nfs kernal
-      become: true
-      package:
-        state: present
-        name:
-          - nfs-common
-          - nfs-kernel-server
-          - portmap
+    - name: nfs-server
+      include: nfs-server.yaml
