@@ -1,14 +1,10 @@
 ---
 - name: nas-server playbook
-  hosts: all
+  hosts: nas
   roles:
     - ../roles/common
     - ../roles/docker-node
       # - ../roles/zfs
-
-  vars:
-    rw_hosts:
-      - host1.example.com
 
   tasks:
     - name: dir-layout
