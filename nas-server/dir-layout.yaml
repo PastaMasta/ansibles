@@ -1,0 +1,36 @@
+---
+# Setup common /data tree mountpoints for mounts from NAS
+- name: /data dir
+  become: yes
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  loop:
+    - /data # Main mountpoint
+    - /data/virt/ # Where VMs / containers live
+
+- name: repo dir
+  become: yes
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+    owner: repo
+    group: repo
+  loop:
+    - /data # Main mountpoint
+    - /data/repo # Fileserver share root
+
+- name: backup dirs
+  become: yes
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+    owner: backups
+    group: backups
+  loop:
+    - /data/backup
+    - /data/backup/local
+    - /data/backup/remote

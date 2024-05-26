@@ -1,8 +1,24 @@
 ---
+# Setup standard groups/users
+- name: repo group
+  become: yes
+  group:
+    name: repo
+    gid: 2000
+
+- name: backup group
+  become: yes
+  group:
+    name: backups
+    gid: 3001
+
 - name: Add local users
   become: yes
   user:
     name: stevet  # TODO: use a variable for username?
+    groups:
+      - repo
+      - backups
 
 - name: SSH access
   become: yes

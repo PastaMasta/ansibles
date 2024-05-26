@@ -11,5 +11,9 @@
       - host1.example.com
 
   tasks:
+    - name: dir-layout
+      include: dir-layout.yaml
     - name: nfs-server
       include: nfs-server.yaml
+    - name: samba-server
+      include: samba-server.yaml

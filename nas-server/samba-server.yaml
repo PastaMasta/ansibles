@@ -1,0 +1,32 @@
+---
+- name: Install samba packages
+  become: true
+  package:
+    state: present
+    name:
+      - samba
+      - samba-client
+
+- name: Generate smb.conf
+  become: true
+  template:
+    src: ./smb.conf.j2
+    dest: /etc/samba/smb.conf
+    owner: root
+    group: root
+    mode: 0644
+  register: smbconf
+
+- name: Start samba server
+  become: true
+  service:
+    name: smbd.service
+    enabled: true
+    state: started
+
+- name: Reload samba
+  become: true
+  service:
+    name: smbd.service
+    state: reloaded
+  when: smbconf.changed
