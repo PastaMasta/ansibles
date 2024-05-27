@@ -1,0 +1,4 @@
+---
+# Install packages per OS
+- include: debian.yaml
+  when: ansible_os_family == "Debian"

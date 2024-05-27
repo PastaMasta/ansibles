@@ -4,7 +4,7 @@
   roles:
     - ../roles/common
     - ../roles/docker-node
-      # - ../roles/zfs
+    - ../roles/zfs
 
   tasks:
     - name: dir-layout

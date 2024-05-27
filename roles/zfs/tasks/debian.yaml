@@ -1,0 +1,26 @@
+---
+- name: Add zfs repos
+  become: true
+  apt_repository:
+    repo: deb https://deb.debian.org/debian {{ ansible_distribution_release }}-backports main contrib non-free
+    state: present
+    update_cache: yes
+
+- name: Add zfs repos
+  become: true
+  apt_repository:
+    repo: deb-src https://deb.debian.org/debian {{ ansible_distribution_release }}-backports main contrib non-free
+    state: present
+    update_cache: yes
+
+- name: install zfs deps
+  become: true
+  package:
+    state: present
+    name:
+      - linux-image-amd64
+      - linux-headers-amd64
+      - linux-image-generic
+      - linux-headers-generic
+      - zfsutils-linux
+      - zfs-dkms
