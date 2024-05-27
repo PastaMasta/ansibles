@@ -8,8 +8,6 @@ Vagrant.configure('2') do |config|
   config.vm.box = "debian/bullseye64"
   cpus = 8
   memory = 4098
-  nas_disks=0
-  nas_disk_size='10' # in GB
 
   config.vm.provider "virtualbox" do |vb|
     vb.cpus = cpus
@@ -28,13 +26,6 @@ Vagrant.configure('2') do |config|
     config.vm.provision "ansible" do |ansible|
         ansible.verbose = "v"
         ansible.playbook = "nas-server.yaml"
-    end
-
-    nas.vm.provider :virtualbox do |vb|
-      nas_disks.times do |i|
-         vb.customize ['createhd', '--filename', "./data-#{i}.vdi",'--variant', 'Standard', '--size', nas_disk_size.to_i * 1024]
-         vb.customize ['storageattach', :id,  '--storagectl', 'SATA Controller', '--port', i, '--device', 0, '--type', 'hdd', '--medium', "./data-#{i}.vdi"]
-       end
     end
 
   end
