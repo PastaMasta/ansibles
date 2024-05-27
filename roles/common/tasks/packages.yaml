@@ -11,6 +11,7 @@
       - htop
       - ntp
       - tree
+      - vim
       - wget
 
         #- name: install Debian packages
