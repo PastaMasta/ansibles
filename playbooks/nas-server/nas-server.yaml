@@ -2,9 +2,9 @@
 - name: nas-server playbook
   hosts: nas
   roles:
-    - ../roles/common
-    - ../roles/docker-node
-    - ../roles/zfs
+    - ../../roles/common
+    - ../../roles/docker-node
+    - ../../roles/zfs
 
   tasks:
     - name: dir-layout
