@@ -7,8 +7,6 @@
     - ../../roles/zfs
 
   tasks:
-    - name: dir-layout
-      include: dir-layout.yaml
     - name: nfs-server
       include: nfs-server.yaml
     - name: samba-server
