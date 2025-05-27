@@ -2,3 +2,10 @@
 - hosts: docker-nodes
   roles:
     - ../roles/docker-node
+
+# Handle compose
+  tasks:
+    - name: "Launch compose: {{item}}"
+      community.docker.docker_compose_v2:
+        project_src: "./docker-composies/{{item}}"
+      loop: "{{composies}}"

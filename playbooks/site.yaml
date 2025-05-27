@@ -1,4 +1,6 @@
 ---
 - import_playbook: ./common.yaml
 - import_playbook: ./docker-nodes.yaml
-- import_playbook: ./nas.yaml
+  # - import_playbook: ./nas.yaml
+
+# Handle secrets

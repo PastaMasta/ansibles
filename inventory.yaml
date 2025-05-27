@@ -1,15 +1,25 @@
 ---
-docker:
+docker-nodes:
   hosts:
-    beanmachine.localdomain:
-    bigusdiskus.localdomain:
-    pi-b.localdomain:
+    # miniframe.localdomain:
+    # pi-b.localdomain:
+    # wallace.localdomain:
+    # gromit.localdomain:
 
-nas:
-  hosts:
-    bigusdiskus.localdomain:
-  vars:
-    rw_hosts:
-      - beanmachine.localdomain
-    backup_hosts:
-      - beanmachine.localdomain
+    ansibletest.localdomain:
+      composies:
+        - "gethomepage"
+        - "pihole"
+
+      # docker-compose
+      # - vars - list of dirs in docker-composies to docker-compose in
+      # - all secrets on the calling host passed around?
+
+      # nas:
+      #   hosts:
+      #     bigusdiskus.localdomain:
+      #   vars:
+      #     rw_hosts:
+      #       - beanmachine.localdomain
+      #     backup_hosts:
+      #       - beanmachine.localdomain
