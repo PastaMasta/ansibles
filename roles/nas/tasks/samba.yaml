@@ -10,7 +10,7 @@
 - name: Generate smb.conf
   become: true
   template:
-    src: ./smb.conf.j2
+    src: smb.conf.j2
     dest: /etc/samba/smb.conf
     owner: root
     group: root

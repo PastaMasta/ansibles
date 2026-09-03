@@ -1,0 +1,7 @@
+---
+
+- include_tasks: nfs.yaml
+  when: ansible_facts['distribution'] == "Debian"
+
+- include_tasks: samba.yaml
+  when: ansible_facts['distribution'] == "Debian"
