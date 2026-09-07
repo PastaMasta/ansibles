@@ -4,12 +4,19 @@
 # Updated on {{ template_run_date }}
 #
 
-# Public access
+# Public read only access to repo
 /data/repo *(sec=sys,sync,ro,crossmnt,no_subtree_check)
 
-# RW access
 {% if rw_hosts is defined %}
-  {% for rw_host in rw_hosts %}
+{% for rw_host in rw_hosts %}
+# Write access for specific hosts
 /data/repo {{ rw_host }}(sync,rw,crossmnt,sec=sys,no_subtree_check)
-  {% endfor %}
+{% endfor %}
+{% endif %}
+
+{% if groups["docker-nodes"] is defined %}
+# Write access for docker hosts
+{% for node in groups["docker-nodes"]%}
+/data/virt/docker {{ node }}(sync,rw,crossmnt,sec=sys,no_subtree_check)
+{% endfor %}
 {% endif %}
